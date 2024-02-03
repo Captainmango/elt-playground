@@ -19,7 +19,7 @@ services:
       test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 20
 
   destination_mysql:
     container_name: destination_db
@@ -37,7 +37,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 20
 
 networks:
   elt_network:
