@@ -1,3 +1,6 @@
+.PHONY: test-elt
+test-elt:
+	python -m unittest discover -v -s ./elt-script -p '*_test.py'
 
 .PHONY: start-source-database
 start-source-database:
