@@ -5,7 +5,8 @@ services:
     container_name: source_db
     image: postgres:14
     ports:
-      - "${SOURCE_PORT}:5432"
+      - "5432:${SOURCE_PORT}"
+    restart: unless-stopped
     networks:
       - elt_network
     environment:
@@ -14,18 +15,29 @@ services:
       POSTGRES_PASSWORD: "${SOURCE_PASS}"
     volumes:
       - ./source_db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   destination_mysql:
     container_name: destination_db
     image: mysql:8.0.32
     ports: 
-      - "${DEST_PORT}:3306"
+      - "3306:${DEST_PORT}"
+    restart: unless-stopped
     networks:
       - elt_network
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1 # this is purely for demo purposes. Never do this in prod
       MYSQL_DATABASE: "${DEST_DB}"
       MYSQL_USER: "${DEST_USER}"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
 networks:
   elt_network:
