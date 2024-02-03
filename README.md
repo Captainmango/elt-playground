@@ -7,11 +7,19 @@ Set up a .env in the root of the project for use with the docker compose file. T
 
 ### Example env
 ```
-POSTGRES_DB: source_db
-POSTGRES_USER: postgres
-POSTGRES_PASSWORD: secret
+SOURCE_DB=src_db
+SOURCE_USER=postgres
+SOURCE_PASS=password
+SOURCE_PORT=5432
+
+DEST_DB=dest_db
+DEST_USER=mysql
+DEST_ROOT_PASS=password
+DEST_PORT=3306
 ```
 
 ### Makefile
-- `make start-source-db` Starts the source database and seeds the initial data
+- `make start-databases` Starts the source and destination databases and seeds the source with initial data (queries in source_db_init/init.sql)
 - `make connect-source-db` Connect to the source database using the psql client
+- `make connect-destination-db` Connect to the destination database using the mysql client
+- `make test-elt` Run the ELT script's tests

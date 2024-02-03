@@ -9,11 +9,23 @@ services:
     networks:
       - elt_network
     environment:
-      POSTGRES_DB: ${SOURCE_DB}
-      POSTGRES_USER: ${SOURCE_USER}
-      POSTGRES_PASSWORD: ${SOURCE_PASS}
+      POSTGRES_DB: "${SOURCE_DB}"
+      POSTGRES_USER: "${SOURCE_USER}"
+      POSTGRES_PASSWORD: "${SOURCE_PASS}"
     volumes:
       - ./source_db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  destination_mysql:
+    container_name: destination_db
+    image: mysql:8.0.32
+    ports: 
+      - "${DEST_PORT}:3306"
+    networks:
+      - elt_network
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 # this is purely for demo purposes. Never do this in prod
+      MYSQL_DATABASE: "${DEST_DB}"
+      MYSQL_USER: "${DEST_USER}"
 
 networks:
   elt_network:
