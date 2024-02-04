@@ -15,6 +15,7 @@ services:
       POSTGRES_PASSWORD: "${SOURCE_PASS}"
     volumes:
       - ./source_db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - source_database:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
       interval: 5s
@@ -33,6 +34,8 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1 # this is purely for demo purposes. Never do this in prod
       MYSQL_DATABASE: "${DEST_DB}"
       MYSQL_USER: "${DEST_USER}"
+    volumes:
+      - destination_database:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
@@ -53,8 +56,14 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    volumes:
+      - ./elt-script/elt_script:/app/elt_script
     
 
 networks:
   elt_network:
     driver: bridge
+  
+volumes:
+  source_database:
+  destination_database:
