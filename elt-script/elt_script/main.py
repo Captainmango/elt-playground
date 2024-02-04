@@ -1,4 +1,3 @@
-import os
 from connector.configuration import ConnectorConfig
 from connector.usql_connector import UsqlConnector
 
