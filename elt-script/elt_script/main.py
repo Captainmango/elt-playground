@@ -2,7 +2,7 @@ import logging
 import os
 import sys
 from connector.configuration import ConnectorConfig
-from connector.usql_connector import UsqlConnector
+from connector.pg_connector import PsqlConnector
 
 
 def setup_logging() -> logging.Logger:
@@ -38,8 +38,8 @@ if __name__ == "__main__":
         port=os.environ["DEST_PORT"],
     )
 
-    with UsqlConnector() as connector:
-        connector.readPgSQL(pg_config)
-        connector.writeMySQL(mysql_config)
+    with PsqlConnector() as connector:
+        connector.read(pg_config)
+        connector.write(mysql_config)
 
     logger.info("Finished ELT process")

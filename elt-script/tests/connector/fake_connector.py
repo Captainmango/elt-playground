@@ -12,12 +12,12 @@ class FakeConnector(DatabaseConnectorProtocol, AbstractContextManager):
         self.log.setLevel(logging.DEBUG)
         self.log.addHandler(logging.StreamHandler(sys.stdout))
     
-    def readPgSQL(self, config: ConnectorConfig):
+    def read(self, config: ConnectorConfig):
         # Create a fake SQL file using stringIO
         # Maybe check log writes too
         print("stuff")
 
-    def writeMySQL(self, config: ConnectorConfig):
+    def write(self, config: ConnectorConfig):
         # Push the fake SQL file out. Probs easiest to check log writes for this
         print("more stuff")
 

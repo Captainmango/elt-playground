@@ -8,7 +8,7 @@ from connector.connector_interface import DatabaseConnectorProtocol
 from connector.configuration import ConnectorConfig
 
 
-class UsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):
+class PsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):
     """
     The connector that can run all the commands needed to satisfy the ELT
     """
@@ -16,19 +16,19 @@ class UsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):
         self.log = logging.getLogger(__name__)
         self.log.setLevel(logging.DEBUG)
         
-    def writeMySQL(self, config: ConnectorConfig):
-        self.log.info(f"Writing to the MySQL database at {config.host}")
-        run(["usql", "--help"], env=asdict(config), check=True, shell=True)
+    def write(self, config: ConnectorConfig):
+        self.log.info(f"Writing to the Postgres database at {config.host}")
+        # run(["usql", "--help"], env=asdict(config), check=True, shell=True)
 
-        self.log.info(f"Write to MySQL database complete")
+        self.log.info(f"Write to Postgres database complete")
     
-    def readPgSQL(self, config: ConnectorConfig):
+    def read(self, config: ConnectorConfig):
         self.log.info(f"Reading from the Postgres database at {config.host}")
         
-        run([
-            f"usql postgres://{config.user}:{config.password}@{config.host}/{config.dbName}", 
-            "-c 'select * from users;' > file.sql"
-        ], env=asdict(config), check=True, shell=True)
+        # run([
+        #     f"usql postgres://{config.user}:{config.password}@{config.host}/{config.dbName}", 
+        #     "-c 'select * from users;' > file.sql"
+        # ], env=asdict(config), check=True, shell=True)
 
         self.log.info(f"Read from the Postgres database complete")
     

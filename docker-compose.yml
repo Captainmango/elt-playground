@@ -5,7 +5,7 @@ services:
     container_name: source_db
     image: postgres:14
     ports:
-      - "5432:${SOURCE_PORT}"
+      - "${SOURCE_PORT}:5432"
     restart: unless-stopped
     networks:
       - elt_network
@@ -22,23 +22,22 @@ services:
       timeout: 5s
       retries: 20
 
-  destination_mysql:
+  destination_postgres:
     container_name: destination_db
-    image: mysql:8.0.32
+    image: postgres:14
     ports: 
-      - "3306:${DEST_PORT}"
+      - "${DEST_PORT}:5432"
     restart: unless-stopped
     networks:
       - elt_network
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: ${DEST_EMPTY_ROOT_PASS} # this is purely for demo purposes. Never do this in prod
-      MYSQL_DATABASE: "${DEST_DB}"
-      MYSQL_USER: "${DEST_USER}"
-      MYSQL_PASSWORD: "${DEST_PASS}"
+      POSTGRES_DB: "${DEST_DB}"
+      POSTGRES_USER: "${DEST_USER}"
+      POSTGRES_PASSWORD: "${DEST_PASS}"
     volumes:
-      - destination_database:/var/lib/mysql
+      - destination_database:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -51,7 +50,7 @@ services:
     networks:
       - elt_network
     depends_on:
-      destination_mysql:
+      destination_postgres:
         condition: service_healthy
       source_postgres:
         condition: service_healthy

@@ -12,7 +12,7 @@ run:
 
 .PHONY: start-databases
 start-databases:
-	docker compose up source_postgres destination_mysql -d
+	docker compose up source_postgres destination_postgres -d
 
 .PHONY: connect-source-database
 connect-source-database:
@@ -20,4 +20,4 @@ connect-source-database:
 
 .PHONY: connect-destination-database
 connect-destination-database:
-	docker exec -it destination_db mysql dest_db
+	docker exec -it destination_db psql -U postgres -d dest_db

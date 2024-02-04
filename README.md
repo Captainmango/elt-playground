@@ -13,10 +13,9 @@ SOURCE_PASS=password
 SOURCE_PORT=5432
 
 DEST_DB=dest_db
-DEST_USER=mysql
+DEST_USER=postgres
 DEST_PASS=password
-DEST_EMPTY_ROOT_PASS=1
-DEST_PORT=3306
+DEST_PORT=5433
 ```
 
 ### Makefile
