@@ -13,7 +13,6 @@ class UsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):
     def __init__(self) -> None:
         self.log = logging.getLogger(__name__)
         self.log.setLevel(logging.INFO)
-        self.log.addHandler(logging.StreamHandler(sys.stdout))
         
     def writeMySQL(self, config: ConnectorConfig):
         self.log.info(f"Writing to the MySQL database at {config.host}")

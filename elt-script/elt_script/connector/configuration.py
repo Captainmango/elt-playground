@@ -9,5 +9,5 @@ class ConnectorConfig:
     user: str = ""
     password: str = ""
     host: str = ""
-    driver: str = ""
     dbName: str = ""
+    port: int = 1234
