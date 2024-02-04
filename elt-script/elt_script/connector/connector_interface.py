@@ -1,9 +1,10 @@
 from typing import Protocol
+from connector.configuration import ConnectorConfig
 
 
 class DatabaseConnectorProtocol(Protocol):
-    def read(self):
+    def readPgSQL(self, config: ConnectorConfig):
         pass
 
-    def write(self):
+    def writeMySQL(self, config: ConnectorConfig):
         pass

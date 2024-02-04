@@ -1,8 +1,14 @@
 import os
-from subprocess import call
+from connector.configuration import ConnectorConfig
+from connector.usql_connector import UsqlConnector
 
 
 if __name__ == "__main__":
-    print("Hello world")
-    print(f"db name: {os.environ['SOURCE_DB']!r}")
-    os.system("ls -lah /usr/local/bin")
+    pg_config = ConnectorConfig()
+    mysql_config = ConnectorConfig()
+
+    with UsqlConnector() as connector:
+        connector.readPgSQL(pg_config)
+        connector.writeMySQL(mysql_config)
+
+    print("it did something...")
