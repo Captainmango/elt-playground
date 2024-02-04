@@ -17,7 +17,7 @@ services:
       - ./source_db_init/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 20
 
@@ -35,9 +35,25 @@ services:
       MYSQL_USER: "${DEST_USER}"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 20
+
+  elt:
+    container_name: elt_script
+    build:
+      context: ./elt-script
+      dockerfile: ./build/Dockerfile
+    networks:
+      - elt_network
+    depends_on:
+      destination_mysql:
+        condition: service_healthy
+      source_postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    
 
 networks:
   elt_network:

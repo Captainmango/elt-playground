@@ -2,6 +2,14 @@
 test-elt:
 	python -m unittest discover -v -s ./elt-script -p '*_test.py'
 
+.PHONY: start-elt
+start-elt:
+	docker compose up elt -d
+
+.PHONY: run
+run:
+	docker compose up -d
+
 .PHONY: start-databases
 start-databases:
 	docker compose up source_postgres destination_mysql -d
