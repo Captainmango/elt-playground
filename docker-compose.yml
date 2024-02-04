@@ -31,9 +31,10 @@ services:
     networks:
       - elt_network
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1 # this is purely for demo purposes. Never do this in prod
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${DEST_EMPTY_ROOT_PASS} # this is purely for demo purposes. Never do this in prod
       MYSQL_DATABASE: "${DEST_DB}"
       MYSQL_USER: "${DEST_USER}"
+      MYSQL_PASSWORD: "${DEST_PASS}"
     volumes:
       - destination_database:/var/lib/mysql
     healthcheck:
