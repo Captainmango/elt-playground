@@ -36,6 +36,7 @@ if __name__ == "__main__":
         user=os.environ["DEST_USER"],
         dbName=os.environ["DEST_DB"],
         host="destination_db",
+        password=os.environ["DEST_PASS"],
         port=os.environ["DEST_PORT"],
     )
 
