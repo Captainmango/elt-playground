@@ -1,7 +1,7 @@
 import io
 from unittest.mock import patch
 from tests.base_testcase import BaseScriptTestCase
-from elt_script import main
+from elt_script.main import main
 
 
 class EltTest(BaseScriptTestCase):
