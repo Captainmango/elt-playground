@@ -1,5 +1,5 @@
 from typing import Protocol
-from connector.configuration import ConnectorConfig
+from elt_script.connector.configuration import ConnectorConfig
 
 
 class DatabaseConnectorProtocol(Protocol):
@@ -12,4 +12,3 @@ class DatabaseConnectorProtocol(Protocol):
     def write(self, config: ConnectorConfig):
         pass
 
-    

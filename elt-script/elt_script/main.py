@@ -1,8 +1,9 @@
 import logging
 import os
 import sys
-from connector.configuration import ConnectorConfig
-from connector.pg_connector import PsqlConnector
+from elt_script.connector.connector_interface import DatabaseConnectorProtocol
+from elt_script.connector.configuration import ConnectorConfig
+from elt_script.connector.pg_connector import PsqlConnector
 
 
 def setup_logging() -> logging.Logger:
@@ -17,7 +18,7 @@ def setup_logging() -> logging.Logger:
 
     return root
 
-if __name__ == "__main__":
+def main(dbConn: DatabaseConnectorProtocol):
     logger = setup_logging()
 
     logger.info("Starting ELT Process")
@@ -38,8 +39,12 @@ if __name__ == "__main__":
         port=os.environ["DEST_PORT"],
     )
 
-    with PsqlConnector() as connector:
+    with dbConn as connector:
         connector.read(source_config)
         connector.write(dest_config)
 
     logger.info("Finished ELT process")
+
+if __name__ == "__main__":
+    main(PsqlConnector())
+
