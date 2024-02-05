@@ -1,5 +1,5 @@
 from tests.base_testcase import BaseScriptTestCase
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from elt_script.connector.configuration import ConnectorConfig
 from elt_script.connector.pg_connector import PsqlConnector
 

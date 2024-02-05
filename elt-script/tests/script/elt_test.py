@@ -1,9 +1,7 @@
 import io
-import os
 from unittest.mock import patch
-from elt_script.connector.configuration import ConnectorConfig
 from tests.base_testcase import BaseScriptTestCase
-from elt_script.main import main
+from elt_script import main
 
 
 class EltTest(BaseScriptTestCase):
