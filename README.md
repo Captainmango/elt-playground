@@ -22,6 +22,6 @@ DEST_PORT=5433
 - `make start-databases` Starts the source and destination databases and seeds the source with initial data (queries in source_db_init/init.sql)
 - `make connect-source-db` Connect to the source database using the psql client
 - `make connect-destination-db` Connect to the destination database using the mysql client
-- `make test-elt` Run the ELT script's tests
+- ~`make test-elt` Run the ELT script's tests~
 - `make start-elt` Start the ELT script
 - `make run` Run the docker compose file that starts the databases and the ELT script once both DBs are healthy
