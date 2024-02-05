@@ -11,3 +11,5 @@ class DatabaseConnectorProtocol(Protocol):
 
     def write(self, config: ConnectorConfig):
         pass
+
+    

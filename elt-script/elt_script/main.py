@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-import time
 from connector.configuration import ConnectorConfig
 from connector.pg_connector import PsqlConnector
 
@@ -17,7 +16,6 @@ def setup_logging() -> logging.Logger:
     root.addHandler(handler)
 
     return root
-
 
 if __name__ == "__main__":
     logger = setup_logging()
