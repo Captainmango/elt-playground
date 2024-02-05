@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import time
 from connector.configuration import ConnectorConfig
 from connector.pg_connector import PsqlConnector
 
@@ -23,7 +24,7 @@ if __name__ == "__main__":
 
     logger.info("Starting ELT Process")
 
-    pg_config = ConnectorConfig(
+    source_config = ConnectorConfig(
         user=os.environ["SOURCE_USER"],
         dbName=os.environ["SOURCE_DB"],
         password=os.environ["SOURCE_PASS"],
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         port=os.environ["SOURCE_PORT"],
     )
 
-    mysql_config = ConnectorConfig(
+    dest_config = ConnectorConfig(
         user=os.environ["DEST_USER"],
         dbName=os.environ["DEST_DB"],
         host="destination_db",
@@ -39,7 +40,7 @@ if __name__ == "__main__":
     )
 
     with PsqlConnector() as connector:
-        connector.read(pg_config)
-        connector.write(mysql_config)
+        connector.read(source_config)
+        connector.write(dest_config)
 
     logger.info("Finished ELT process")

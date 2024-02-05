@@ -43,7 +43,6 @@ services:
       retries: 20
 
   elt:
-    container_name: elt_script
     build:
       context: ./elt-script
       dockerfile: ./build/Dockerfile
