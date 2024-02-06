@@ -1,5 +1,7 @@
+from contextlib import redirect_stdout
 import io
 from unittest.mock import patch
+
 from tests.base_testcase import BaseScriptTestCase
 from main import main
 
@@ -13,7 +15,8 @@ class EltTest(BaseScriptTestCase):
         mock_connector.write = lambda cfg : f.write(f"write to {cfg.host}/{cfg.dbName}")
         mock_connector.__enter__ = lambda self : self
 
-        main(mock_connector)
+        with redirect_stdout(f):
+            main(mock_connector)
 
         assert(f.getvalue is not "")
         

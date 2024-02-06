@@ -39,6 +39,7 @@ def main(dbConn: DatabaseConnectorProtocol):
         port=os.environ["DEST_PORT"],
     )
 
+    connector: DatabaseConnectorProtocol
     with dbConn as connector:
         connector.read(source_config)
         connector.write(dest_config)
