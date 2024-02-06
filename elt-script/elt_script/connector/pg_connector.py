@@ -31,4 +31,5 @@ class PsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):
             return True
 
         self.log.error(__exc_value)
+        return True
         
