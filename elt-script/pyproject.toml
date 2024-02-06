@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 poetry-plugin-dotenv = "^0.6.5"
+dbt-postgres = "^1.7.7"
 
 
 [build-system]

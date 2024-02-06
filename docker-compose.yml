@@ -45,7 +45,7 @@ services:
   elt:
     build:
       context: ./elt-script
-      dockerfile: ./build/Dockerfile
+      dockerfile: ./build/elt_script/Dockerfile
     networks:
       - elt_network
     depends_on:
@@ -57,7 +57,22 @@ services:
       - .env
     volumes:
       - ./elt-script/elt_script:/app/elt-script/elt_script
-    
+
+  dbt:
+    build:
+      context: ./elt-script/postgres_transform
+      dockerfile: ../build/postgres_transform/Dockerfile # Very cheeky. Kinda borked project set up tbh
+    networks:
+      - elt_network
+    depends_on:
+      elt:
+        condition: service_completed_successfully
+    environment:
+      DBT_PROFILE: default
+      DBT_TARGET: dev
+    volumes:
+      - ./elt-script/postgres_transform:/dbt
+      
 
 networks:
   elt_network:

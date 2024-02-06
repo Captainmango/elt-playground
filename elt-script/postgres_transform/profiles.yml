@@ -1,0 +1,12 @@
+postgres_transform:
+  outputs:
+    dev:
+      dbname: dest_db
+      host: destination_db
+      pass: password
+      port: 5432
+      schema: public
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
