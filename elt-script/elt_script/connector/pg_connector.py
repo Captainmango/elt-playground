@@ -1,6 +1,6 @@
-from contextlib import AbstractContextManager
 import logging
 import subprocess
+
 from elt_script.connector.connector_interface import DatabaseConnectorProtocol
 from elt_script.connector.configuration import ConnectorConfig
 

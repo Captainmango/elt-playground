@@ -28,7 +28,7 @@ def main(dbConn: DatabaseConnectorProtocol):
         dbName=os.environ["SOURCE_DB"],
         password=os.environ["SOURCE_PASS"],
         host="source_db",
-        port=os.environ["SOURCE_PORT"],
+        port=int(os.environ["SOURCE_PORT"]),
     )
 
     dest_config = ConnectorConfig(
@@ -36,7 +36,7 @@ def main(dbConn: DatabaseConnectorProtocol):
         dbName=os.environ["DEST_DB"],
         host="destination_db",
         password=os.environ["DEST_PASS"],
-        port=os.environ["DEST_PORT"],
+        port=int(os.environ["DEST_PORT"]),
     )
 
     connector: DatabaseConnectorProtocol

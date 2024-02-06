@@ -1,28 +1,15 @@
 from logging import Logger
-from types import TracebackType
-from typing import Protocol, Self
-from elt_script.connector.configuration import ConnectorConfig
+from elt_script.connector.logging_contextmanager import LoggingContextManager
+from elt_script.connector.connector_readwriter import ConnectorReadWriter
 
 
-class DatabaseConnectorProtocol(Protocol):
+class DatabaseConnectorProtocol(ConnectorReadWriter, LoggingContextManager):
     """
     An interface the database connector must conform to in order to satisfy the script
     """
-    _log: Logger
 
-    def read(self, config: ConnectorConfig):
-        pass
+    _log:Logger
 
-    def write(self, config: ConnectorConfig):
-        pass
 
-    def __enter__(self) -> Self:
-        return self
 
-    def __exit__(self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None) -> bool | None:
-        if __exc_type is not Exception:
-            return True
-
-        self.log.error(__exc_value)
-        return True
 
