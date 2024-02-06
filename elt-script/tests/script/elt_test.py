@@ -8,23 +8,24 @@ from elt_script.connector.configuration import ConnectorConfig
 
 
 class EltTest(BaseScriptTestCase):
-    @patch("elt_script.connector.pg_connector")
+    @patch("elt_script.connector.pg_connector.PsqlConnector", autospec=True)
     def test_it_runs(self, mock_connector):
-        f = io.StringIO()
+        fake_stdout = io.StringIO()
 
         def read(cfg: ConnectorConfig) -> None:
-            f.write(f"read from {cfg.host}/{cfg.dbName} \n")
+            fake_stdout.write(f"read from {cfg.host}/{cfg.dbName} \n")
 
         def write(cfg: ConnectorConfig) -> None:
-            f.write(f"write to {cfg.host}/{cfg.dbName} \n")
+            fake_stdout.write(f"write to {cfg.host}/{cfg.dbName} \n")
 
         mock_connector.read = read
         mock_connector.write = write
         mock_connector.__enter__ = lambda self : self
+        mock_connector.__exit__ = lambda self, exc, exc_val, tb: True
 
-        with redirect_stdout(f):
+        with redirect_stdout(fake_stdout):
             main(mock_connector)
 
-        assert "read" in f.getvalue()
-        assert "write" in f.getvalue()
+        assert "read" in fake_stdout.getvalue()
+        assert "write" in fake_stdout.getvalue()
         
