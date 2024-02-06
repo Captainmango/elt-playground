@@ -21,6 +21,6 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
 RUN poetry install
-COPY elt_script ./elt_script
+COPY . ./elt-script
 
-CMD ["poetry", "run", "-vvv", "python", "./elt_script/main.py"]
+CMD ["poetry", "run", "-vvv", "python", "elt-script/main.py"]

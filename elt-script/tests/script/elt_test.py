@@ -1,7 +1,7 @@
 import io
 from unittest.mock import patch
 from tests.base_testcase import BaseScriptTestCase
-from elt_script.main import main
+from main import main
 
 
 class EltTest(BaseScriptTestCase):
@@ -15,5 +15,5 @@ class EltTest(BaseScriptTestCase):
 
         main(mock_connector)
 
-        assert(f.getvalue is not None)
+        assert(f.getvalue is not "")
         

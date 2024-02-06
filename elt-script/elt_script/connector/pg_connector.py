@@ -2,8 +2,8 @@ from contextlib import AbstractContextManager
 import logging
 import subprocess
 from types import TracebackType
-from connector.connector_interface import DatabaseConnectorProtocol
-from connector.configuration import ConnectorConfig
+from elt_script.connector.connector_interface import DatabaseConnectorProtocol
+from elt_script.connector.configuration import ConnectorConfig
 
 
 class PsqlConnector(DatabaseConnectorProtocol, AbstractContextManager):

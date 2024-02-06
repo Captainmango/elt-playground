@@ -1,5 +1,5 @@
 from typing import Protocol
-from connector.configuration import ConnectorConfig
+from elt_script.connector.configuration import ConnectorConfig
 
 
 class DatabaseConnectorProtocol(Protocol):

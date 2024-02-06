@@ -1,9 +1,9 @@
 import logging
 import os
 import sys
-from connector.connector_interface import DatabaseConnectorProtocol
-from connector.configuration import ConnectorConfig
-from connector.pg_connector import PsqlConnector
+from elt_script.connector.connector_interface import DatabaseConnectorProtocol
+from elt_script.connector.configuration import ConnectorConfig
+from elt_script.connector.pg_connector import PsqlConnector
 
 
 def setup_logging() -> logging.Logger:
