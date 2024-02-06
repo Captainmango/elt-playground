@@ -9,7 +9,3 @@ class DatabaseConnectorProtocol(ConnectorReadWriter, LoggingContextManager):
     """
 
     _log:Logger
-
-
-
-

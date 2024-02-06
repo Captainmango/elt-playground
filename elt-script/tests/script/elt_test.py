@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from tests.base_testcase import BaseScriptTestCase
 from main import main
+from elt_script.connector.configuration import ConnectorConfig
 
 
 class EltTest(BaseScriptTestCase):
@@ -11,12 +12,19 @@ class EltTest(BaseScriptTestCase):
     def test_it_runs(self, mock_connector):
         f = io.StringIO()
 
-        mock_connector.read = lambda cfg : f.write(f"read from {cfg.host}/{cfg.dbName}")
-        mock_connector.write = lambda cfg : f.write(f"write to {cfg.host}/{cfg.dbName}")
+        def read(cfg: ConnectorConfig) -> None:
+            f.write(f"read from {cfg.host}/{cfg.dbName} \n")
+
+        def write(cfg: ConnectorConfig) -> None:
+            f.write(f"write to {cfg.host}/{cfg.dbName} \n")
+
+        mock_connector.read = read
+        mock_connector.write = write
         mock_connector.__enter__ = lambda self : self
 
         with redirect_stdout(f):
             main(mock_connector)
 
-        assert(f.getvalue is not "")
+        assert "read" in f.getvalue()
+        assert "write" in f.getvalue()
         

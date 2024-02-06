@@ -9,7 +9,7 @@ from elt_script.connector.pg_connector import PsqlConnector
 def setup_logging() -> logging.Logger:
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
-
+    
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
