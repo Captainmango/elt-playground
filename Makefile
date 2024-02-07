@@ -11,7 +11,7 @@ test-dbt:
 	cd elt-script/postgres_transform && poetry run dbt test
 
 .PHONY: run-dbt
-test-dbt:
+run-dbt:
 	cd elt-script/postgres_transform && poetry run dbt run
 
 .PHONY: run
