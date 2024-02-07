@@ -6,6 +6,14 @@ test-elt:
 start-elt:
 	docker compose up elt -d
 
+.PHONY: test-dbt
+test-dbt:
+	cd elt-script/postgres_transform && poetry run dbt test
+
+.PHONY: run-dbt
+test-dbt:
+	cd elt-script/postgres_transform && poetry run dbt run
+
 .PHONY: run
 run:
 	docker compose up -d
@@ -21,3 +29,4 @@ connect-source-database:
 .PHONY: connect-destination-database
 connect-destination-database:
 	docker exec -it destination_db psql -U postgres -d dest_db
+

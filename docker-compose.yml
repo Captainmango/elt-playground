@@ -69,7 +69,7 @@ services:
         condition: service_completed_successfully
     environment:
       DBT_PROFILE: default
-      DBT_TARGET: dev
+      DBT_TARGET: dev-docker
     volumes:
       - ./elt-script/postgres_transform:/dbt
       

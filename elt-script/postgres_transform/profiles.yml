@@ -1,6 +1,6 @@
 postgres_transform:
   outputs:
-    dev:
+    dev-docker:
       dbname: dest_db
       host: destination_db
       pass: password
@@ -9,4 +9,13 @@ postgres_transform:
       threads: 1
       type: postgres
       user: postgres
-  target: dev
+    dev-local:
+      dbname: dest_db
+      host: localhost
+      pass: password
+      port: 5433
+      schema: public
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev-docker
