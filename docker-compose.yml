@@ -42,36 +42,115 @@ services:
       timeout: 5s
       retries: 20
 
-  elt:
+  dagster_postgres:
+    container_name: dagster_db
+    image: postgres:14
+    ports: 
+      - "${DAGSTER_DB_PORT}:5432"
+    restart: unless-stopped
+    networks:
+      - elt_network
+    environment:
+      POSTGRES_DB: "${DAGSTER_DB}"
+      POSTGRES_USER: "${DAGSTER_DB_USER}"
+      POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
+    volumes:
+      - dagster_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "localhost", "-U", "${SOURCE_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Turning this off as we're going to run it via Dagster now. Tombstoned for learning purposes.
+  # elt:
+  #   build:
+  #     context: ./elt-script
+  #     dockerfile: ./build/elt_script/Dockerfile
+  #   networks:
+  #     - elt_network
+  #   depends_on:
+  #     destination_postgres:
+  #       condition: service_healthy
+  #     source_postgres:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./elt-script/elt_script:/app/elt-script/elt_script
+
+  dagster_webserver:
     build:
       context: ./elt-script
-      dockerfile: ./build/elt_script/Dockerfile
-    networks:
-      - elt_network
-    depends_on:
-      destination_postgres:
-        condition: service_healthy
-      source_postgres:
-        condition: service_healthy
-    env_file:
-      - .env
-    volumes:
-      - ./elt-script/elt_script:/app/elt-script/elt_script
-
-  dbt:
-    build:
-      context: ./elt-script/postgres_transform
-      dockerfile: ../build/postgres_transform/Dockerfile # Very cheeky. Kinda borked project set up tbh
-    networks:
-      - elt_network
-    depends_on:
-      elt:
-        condition: service_completed_successfully
+      dockerfile: ./build/dagster/Dockerfile.platform
+    entrypoint:
+      - dagster-webserver
+      - -h
+      - "0.0.0.0"
+      - -p
+      - "3000"
+      - -w
+      - workspace.yaml
+    container_name: dagster_webserver
+    expose:
+      - "${DAGSTER_PORT}"
+    ports:
+      - "${DAGSTER_PORT}:3000"
     environment:
-      DBT_PROFILE: default
-      DBT_TARGET: dev-docker
-    volumes:
-      - ./elt-script/postgres_transform:/dbt
+      DAGSTER_POSTGRES_USER: "${DAGSTER_DB_USER}"
+      DAGSTER_POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
+      DAGSTER_POSTGRES_DB: "${DAGSTER_DB}"
+    volumes: # Make docker client accessible so we can terminate containers from the webserver
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+    networks:
+      - elt_network
+    depends_on:
+      dagster_postgres:
+        condition: service_healthy
+      # dags:
+      #   condition: service_started
+
+  # This service runs the dagster-daemon process, which is responsible for taking runs
+  # off of the queue and launching them, as well as creating runs from schedules or sensors.
+  dagster_daemon:
+    build:
+      context: ./elt-script
+      dockerfile: ./build/dagster/Dockerfile.platform
+    entrypoint:
+      - dagster-daemon
+      - run
+    container_name: dagster_daemon
+    restart: on-failure
+    environment:
+      DAGSTER_POSTGRES_USER: "${DAGSTER_DB_USER}"
+      DAGSTER_POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
+      DAGSTER_POSTGRES_DB: "${DAGSTER_DB}"
+    volumes: # Make docker client accessible so we can launch containers using host docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+    networks:
+      - elt_network
+    depends_on:
+      dagster_postgres:
+        condition: service_healthy
+      # dags:
+      #   condition: service_started
+
+  # dbt:
+  #   build:
+  #     context: ./elt-script/postgres_transform
+  #     dockerfile: ../build/postgres_transform/Dockerfile # Very cheeky. Kinda borked project set up tbh
+  #   networks:
+  #     - elt_network
+  #   depends_on:
+  #     elt:
+  #       condition: service_completed_successfully
+  #   environment:
+  #     DBT_PROFILE: default
+  #     DBT_TARGET: dev-docker
+  #   volumes:
+  #     - ./elt-script/postgres_transform:/dbt
       
 
 networks:
@@ -81,3 +160,4 @@ networks:
 volumes:
   source_database:
   destination_database:
+  dagster_database:
