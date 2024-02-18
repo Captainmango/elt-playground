@@ -1,4 +1,3 @@
-
 from logging import Logger
 from types import TracebackType
 from typing import Protocol, Self
