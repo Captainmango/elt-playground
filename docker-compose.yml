@@ -139,7 +139,7 @@ services:
       dags:
         condition: service_started
 
-  dags:
+  elt-code:
     build:
       context: ./elt-script
       dockerfile: ./build/dagster/Dockerfile.worker
