@@ -1,8 +1,8 @@
 load_from:
-  - grpc_server:
-      host: elt-code
-      port: 4000
-      location_name: "elt-code"
+#   - grpc_server:
+#       host: elt-code
+#       port: 4000
+#       location_name: "elt-code"
   - grpc_server:
       host: dagster-dbt
       port: 4000
