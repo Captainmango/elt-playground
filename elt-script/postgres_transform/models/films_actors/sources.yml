@@ -8,7 +8,16 @@ sources:
     tables:
       - name: films
         description: "List of films."
+        meta:
+          dagster:
+            asset_key: ["raw_films"]
       - name: actors
         description: "List of actors."
+        meta:
+          dagster:
+            asset_key: ["raw_actors"]
       - name: film_actors
         description: "Mapping between films and actors."
+        meta:
+          dagster:
+            asset_key: ["raw_film_actors"]
