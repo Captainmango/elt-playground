@@ -3,3 +3,7 @@ load_from:
       host: elt-code
       port: 4000
       location_name: "elt-code"
+  - grpc_server:
+      host: dagster-dbt
+      port: 4001
+      location_name: "dbt-project"

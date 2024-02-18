@@ -11,8 +11,8 @@ RUN pip install \
 
 WORKDIR /opt/dagster/app
 
-COPY /pg_transform ./pg_transform
-COPY /postgres_transform ./postgres_transform
+COPY ./pg_transform ./pg_transform
+COPY ./postgres_transform ./postgres_transform
 
 # Run dagster gRPC server on port 4000
 

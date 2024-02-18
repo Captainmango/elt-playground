@@ -22,6 +22,9 @@ run_launcher:
       - DEST_DB
       - DEST_PASS
       - DEST_PORT
+      - DBT_TARGET
+      - DBT_PROFILE
+      - DAGSTER_DBT_PARSE_PROJECT_ON_LOAD
     network: elt_network
     container_kwargs:
       volumes: # Make docker client accessible to any launched containers as well
