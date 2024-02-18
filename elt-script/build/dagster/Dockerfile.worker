@@ -9,7 +9,7 @@ RUN pip install \
 
 WORKDIR /opt/dagster/app
 
-COPY /elt_script ./opt/dagster/app/elt-script/elt_script
+COPY /elt_script ./elt_script
 
 # Run dagster gRPC server on port 4000
 
@@ -17,4 +17,4 @@ EXPOSE 4000
 
 # CMD allows this to be overridden from run launchers or executors that want
 # to run other commands against your repository
-CMD ["dagster", "api", "grpc", "-h", "0.0.0.0", "-p", "4000", "-f", "elt-script/elt_script/transfer_data.py"]
+CMD ["dagster", "api", "grpc", "-h", "0.0.0.0", "-p", "4000", "-f", "elt_script/transfer_data.py"]

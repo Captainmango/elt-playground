@@ -88,7 +88,7 @@ services:
       - -h
       - "0.0.0.0"
       - -p
-      - "3000"
+      - "${DAGSTER_PORT}"
       - -w
       - workspace.yaml
     container_name: dagster_webserver
@@ -122,6 +122,8 @@ services:
       - run
     container_name: dagster_daemon
     restart: on-failure
+    env_file:
+      - .env
     environment:
       DAGSTER_POSTGRES_USER: "${DAGSTER_DB_USER}"
       DAGSTER_POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
@@ -145,10 +147,9 @@ services:
     image: elt-code_image
     restart: always
     environment:
-      DAGSTER_POSTGRES_USER: "${DAGSTER_DB_USER}"
-      DAGSTER_POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
-      DAGSTER_POSTGRES_DB: "${DAGSTER_DB}"
       DAGSTER_CURRENT_IMAGE: "elt-code_image"
+    env_file:
+      - .env
     networks:
       - elt_network
 
@@ -171,6 +172,7 @@ services:
 networks:
   elt_network:
     driver: bridge
+    name: elt_network
   
 volumes:
   source_database:
