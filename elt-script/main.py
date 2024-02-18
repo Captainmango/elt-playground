@@ -1,9 +1,8 @@
 import logging
-import os
 import sys
 from elt_script.connector.connector_interface import DatabaseConnectorProtocol
-from elt_script.connector.configuration import ConnectorConfig
 from elt_script.connector.pg_connector import PsqlConnector
+from elt_script.transfer_data import transfer_data
 
 
 def setup_logging() -> logging.Logger:
@@ -22,27 +21,7 @@ def main(dbConn: DatabaseConnectorProtocol):
     logger = setup_logging()
 
     logger.info("Starting ELT Process")
-
-    source_config = ConnectorConfig(
-        user=os.environ["SOURCE_USER"],
-        dbName=os.environ["SOURCE_DB"],
-        password=os.environ["SOURCE_PASS"],
-        host="source_db",
-        port=int(os.environ["SOURCE_PORT"]),
-    )
-
-    dest_config = ConnectorConfig(
-        user=os.environ["DEST_USER"],
-        dbName=os.environ["DEST_DB"],
-        host="destination_db",
-        password=os.environ["DEST_PASS"],
-        port=int(os.environ["DEST_PORT"]),
-    )
-
-    connector: DatabaseConnectorProtocol
-    with dbConn as connector:
-        connector.read(source_config)
-        connector.write(dest_config)
+    transfer_data(dbConn)
 
     logger.info("Finished ELT process")
 

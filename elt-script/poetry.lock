@@ -442,13 +442,13 @@ test-randomorder = ["pytest-randomly"]
 
 [[package]]
 name = "dagster"
-version = "1.6.4"
+version = "1.6.5"
 description = "Dagster is an orchestration platform for the development, production, and observation of data assets."
 optional = false
 python-versions = "*"
 files = [
-    {file = "dagster-1.6.4-py3-none-any.whl", hash = "sha256:d8fc6c34aa116c0f72b3a60b6b54cf2621d956edbcc09d393945ce9f7e4c2086"},
-    {file = "dagster-1.6.4.tar.gz", hash = "sha256:d306226480fd61d675db24821597f7f97bd2fd0c8d82badd05a1162783ae58c0"},
+    {file = "dagster-1.6.5-py3-none-any.whl", hash = "sha256:6432277d74218993f2e0f4ade88e6d46e6533ad975b884afea4e306fe6e3b44c"},
+    {file = "dagster-1.6.5.tar.gz", hash = "sha256:1e0fff0ddf29a2f01a0147d4a8ab119774d6e4fc88f3c3087c17827cac2ea380"},
 ]
 
 [package.dependencies]
@@ -456,7 +456,7 @@ alembic = ">=1.2.1,<1.6.3 || >1.6.3,<1.7.0 || >1.7.0,<1.11.0 || >1.11.0"
 click = ">=5.0"
 coloredlogs = ">=6.1,<=14.0"
 croniter = ">=0.3.34"
-dagster-pipes = "1.6.4"
+dagster-pipes = "1.6.5"
 docstring-parser = "*"
 grpcio = ">=1.44.0"
 grpcio-health-checking = ">=1.44.0"
@@ -493,17 +493,17 @@ test = ["buildkite-test-collector", "docker", "grpcio-tools (>=1.44.0)", "mock (
 
 [[package]]
 name = "dagster-dbt"
-version = "0.22.4"
+version = "0.22.5"
 description = "A Dagster integration for dbt"
 optional = false
 python-versions = "*"
 files = [
-    {file = "dagster-dbt-0.22.4.tar.gz", hash = "sha256:fb5a9360492b207f6d911dfacdc78d44ed8383cea3dbe98cc65faae3aea7c3af"},
-    {file = "dagster_dbt-0.22.4-py3-none-any.whl", hash = "sha256:8ddeca9575b5e6b777d2ba45badda2586e31bf6dcf6326d8ba1775b4c321d81d"},
+    {file = "dagster-dbt-0.22.5.tar.gz", hash = "sha256:6c35ba195efab91e5adc32a21a25f95d31d12f4caed5ff3ee2b784429e5a01e9"},
+    {file = "dagster_dbt-0.22.5-py3-none-any.whl", hash = "sha256:4836bcf2fd1b07e917f109af9164bae6f22ab6a1c5b979223ea6f958e3733224"},
 ]
 
 [package.dependencies]
-dagster = "1.6.4"
+dagster = "1.6.5"
 dbt-core = ">=1.5,<1.8"
 Jinja2 = "*"
 networkx = "*"
@@ -518,13 +518,13 @@ test = ["dagster-duckdb", "dagster-duckdb-pandas", "dbt-duckdb"]
 
 [[package]]
 name = "dagster-pipes"
-version = "1.6.4"
+version = "1.6.5"
 description = "Toolkit for Dagster integrations with transform logic outside of Dagster"
 optional = false
 python-versions = "*"
 files = [
-    {file = "dagster-pipes-1.6.4.tar.gz", hash = "sha256:7dc8226782a2325bd8872c72648dbb830f83cd0dc90ba785b2f70086c8579ae9"},
-    {file = "dagster_pipes-1.6.4-py3-none-any.whl", hash = "sha256:68826e258f6787e6bd066cc37d44649e6ac8c75fbaa35dc8b88d1faa31d0c725"},
+    {file = "dagster-pipes-1.6.5.tar.gz", hash = "sha256:36d8c35adb7fe95136c56b38280275476632a87864c3daa5473d82eaf5033766"},
+    {file = "dagster_pipes-1.6.5-py3-none-any.whl", hash = "sha256:c529a1df2a5ee8bdf0f42e657f72177ce5706500598cfec235121cc97a45e005"},
 ]
 
 [[package]]
