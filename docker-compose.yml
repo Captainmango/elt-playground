@@ -143,20 +143,21 @@ services:
       dagster-dbt:
         condition: service_started
 
-  elt-code:
-    build:
-      context: ./elt-script
-      dockerfile: ./build/dagster/Dockerfile.worker
-    container_name: elt-code
-    image: elt-code_image
-    restart: always
-    environment:
-      DAGSTER_CURRENT_IMAGE: "elt-code_image"
-    env_file:
-      - .env
-    networks:
-      - elt_network
+  # elt-code:
+  #   build:
+  #     context: ./elt-script
+  #     dockerfile: ./build/dagster/Dockerfile.worker
+  #   container_name: elt-code
+  #   image: elt-code_image
+  #   restart: always
+  #   environment:
+  #     DAGSTER_CURRENT_IMAGE: "elt-code_image"
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - elt_network
 
+# This image has the above code in it now
   dagster-dbt:
     build:
       context: ./elt-script
