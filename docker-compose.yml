@@ -108,8 +108,8 @@ services:
     depends_on:
       dagster_postgres:
         condition: service_healthy
-      # dags:
-      #   condition: service_started
+      dags:
+        condition: service_started
 
   # This service runs the dagster-daemon process, which is responsible for taking runs
   # off of the queue and launching them, as well as creating runs from schedules or sensors.
@@ -134,8 +134,23 @@ services:
     depends_on:
       dagster_postgres:
         condition: service_healthy
-      # dags:
-      #   condition: service_started
+      dags:
+        condition: service_started
+
+  dags:
+    build:
+      context: ./elt-script
+      dockerfile: ./build/dagster/Dockerfile.worker
+    container_name: elt-code
+    image: elt-code_image
+    restart: always
+    environment:
+      DAGSTER_POSTGRES_USER: "${DAGSTER_DB_USER}"
+      DAGSTER_POSTGRES_PASSWORD: "${DAGSTER_DB_PASS}"
+      DAGSTER_POSTGRES_DB: "${DAGSTER_DB}"
+      DAGSTER_CURRENT_IMAGE: "elt-code_image"
+    networks:
+      - elt_network
 
   # dbt:
   #   build:
