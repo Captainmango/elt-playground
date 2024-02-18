@@ -3,5 +3,4 @@
 *.vscode
 tests
 build
-postgres_transform
 logs

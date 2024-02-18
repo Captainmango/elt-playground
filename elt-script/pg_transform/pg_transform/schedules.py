@@ -3,7 +3,7 @@ To add a daily schedule that materializes your dbt assets, uncomment the followi
 """
 from dagster_dbt import build_schedule_from_dbt_selection
 
-from .assets import postgres_transform_dbt_assets
+from pg_transform.pg_transform.assets import postgres_transform_dbt_assets
 
 schedules = [
 #     build_schedule_from_dbt_selection(

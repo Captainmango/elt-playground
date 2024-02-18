@@ -5,5 +5,5 @@ load_from:
       location_name: "elt-code"
   - grpc_server:
       host: dagster-dbt
-      port: 4001
+      port: 4000
       location_name: "dbt-project"
