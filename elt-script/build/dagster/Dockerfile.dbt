@@ -14,7 +14,6 @@ WORKDIR /opt/dagster/app
 
 COPY ./pg_transform ./pg_transform
 COPY ./postgres_transform ./postgres_transform
-COPY ./elt_script ./elt_script
 
 # Run dagster gRPC server on port 4000
 
