@@ -2,7 +2,6 @@ import os
 from elt_script.connector.configuration import ConnectorConfig
 from elt_script.connector.connector_interface import DatabaseConnectorProtocol
 from elt_script.connector.pg_connector import PsqlConnector
-from dagster import job
 
 
 def transfer_data(dbConn: DatabaseConnectorProtocol):
@@ -27,9 +26,6 @@ def transfer_data(dbConn: DatabaseConnectorProtocol):
         connector.read(source_config)
         connector.write(dest_config)
 
-@job(
-    description="Move data from source database to destination database"
-)
 def transfer_data_job():
     connector = PsqlConnector()
     transfer_data(connector)
