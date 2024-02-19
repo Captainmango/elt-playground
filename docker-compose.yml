@@ -171,6 +171,9 @@ services:
       - .env
     networks:
       - elt_network
+    volumes:
+      - ./elt-script/postgres_transfrom:/opt/dagster/app/postgres_transform
+      - ./elt-script/pg_transfrom:/opt/dagster/app/pg_transform
 
   # dbt:
   #   build:

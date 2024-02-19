@@ -12,6 +12,6 @@ defs = Definitions(
     assets=[postgres_transform_dbt_assets],
     schedules=schedules,
     resources={
-        "dbt": DbtCliResource(project_dir=os.fspath(dbt_project_dir)),
+        "dbt": DbtCliResource(project_dir=os.fspath(dbt_project_dir))
     },
 )

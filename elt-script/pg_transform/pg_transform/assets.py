@@ -1,4 +1,4 @@
-from dagster import AssetExecutionContext, asset
+from dagster import AssetExecutionContext
 from dagster_dbt import DbtCliResource, dbt_assets
 
 from pg_transform.pg_transform.constants import dbt_manifest_path
