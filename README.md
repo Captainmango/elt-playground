@@ -16,12 +16,23 @@ DEST_DB=dest_db
 DEST_USER=postgres
 DEST_PASS=password
 DEST_PORT=5433
+
+DAGSTER_DB=dags_db
+DAGSTER_DB_USER=postgres
+DAGSTER_DB_PASS=password
+DAGSTER_DB_PORT=5344
+
+DAGSTER_PORT=3000
+
+DBT_PROFILE=default
+DBT_TARGET=dev-docker
+
+DAGSTER_DBT_PARSE_PROJECT_ON_LOAD=1
 ```
 
 ### Makefile
+- `make run` Run the docker compose file that starts the databases and Dagster once all DBs are healthy
 - `make start-databases` Starts the source and destination databases and seeds the source with initial data (queries in source_db_init/init.sql)
 - `make connect-source-db` Connect to the source database using the psql client
 - `make connect-destination-db` Connect to the destination database using the mysql client
 - `make test-elt` Run the ELT script's tests
-- `make start-elt` Start the ELT script
-- `make run` Run the docker compose file that starts the databases and the ELT script once both DBs are healthy
