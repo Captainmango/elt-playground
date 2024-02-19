@@ -110,8 +110,6 @@ services:
         condition: service_healthy
       elt-code:
         condition: service_started
-      dagster-dbt:
-        condition: service_started
 
   # This service runs the dagster-daemon process, which is responsible for taking runs
   # off of the queue and launching them, as well as creating runs from schedules or sensors.
@@ -140,8 +138,6 @@ services:
         condition: service_healthy
       elt-code:
         condition: service_started
-      dagster-dbt:
-        condition: service_started
 
   elt-code:
     build:
@@ -157,7 +153,6 @@ services:
     networks:
       - elt_network
 
-# This image has the above code in it now
   dagster-dbt:
     build:
       context: ./elt-script
@@ -171,9 +166,6 @@ services:
       - .env
     networks:
       - elt_network
-    volumes:
-      - ./elt-script/postgres_transfrom:/opt/dagster/app/postgres_transform
-      - ./elt-script/pg_transfrom:/opt/dagster/app/pg_transform
 
   # dbt:
   #   build:
