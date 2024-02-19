@@ -5,6 +5,10 @@ This is me playing about with an ELT pattern as a data engineer. This isn't a se
 ## Usage
 Set up a .env in the root of the project for use with the docker compose file. There is a Makefile for running things easier.
 
+### Notes
+- ELT code in Dagster doesn't seem to work properly. Not too sure why. It works via the Docker container so shouldm work via Dagster. Not much value in debugging as just a toy project
+- DBT schema has issues with my SQL. It looks valid, but it claims things aren't valid and says things don't exist sometimes. Not much value in fixing. If you're looking at this and have a fix, go for it. I lost hours trying to get it to play ball.
+
 ### Example env
 ```
 SOURCE_DB=src_db
