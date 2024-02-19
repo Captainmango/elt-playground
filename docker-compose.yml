@@ -62,23 +62,6 @@ services:
       timeout: 5s
       retries: 20
 
-  # Turning this off as we're going to run it via Dagster now. Tombstoned for learning purposes.
-  # elt:
-  #   build:
-  #     context: ./elt-script
-  #     dockerfile: ./build/elt_script/Dockerfile
-  #   networks:
-  #     - elt_network
-  #   depends_on:
-  #     destination_postgres:
-  #       condition: service_healthy
-  #     source_postgres:
-  #       condition: service_healthy
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - ./elt-script/elt_script:/app/elt-script/elt_script
-
   dagster_webserver:
     build:
       context: ./elt-script
@@ -166,6 +149,23 @@ services:
       - .env
     networks:
       - elt_network
+
+  # Turning this off as we're going to run it all via Dagster now. Tombstoned for learning purposes.
+  # elt:
+  #   build:
+  #     context: ./elt-script
+  #     dockerfile: ./build/elt_script/Dockerfile
+  #   networks:
+  #     - elt_network
+  #   depends_on:
+  #     destination_postgres:
+  #       condition: service_healthy
+  #     source_postgres:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./elt-script/elt_script:/app/elt-script/elt_script
 
   # dbt:
   #   build:
