@@ -24,6 +24,8 @@
     select
         fwr.*,
         fwa.actors
+        count(fwa.actors) as actor_count,
+        avg(fwr.user_rating) as avg_actor_rating
     from films_with_ratings fwr
     left join films_with_actors fwa using (film_id)
 {% endmacro %}
