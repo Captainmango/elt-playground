@@ -10,8 +10,8 @@ class PsqlConnector(DatabaseConnectorProtocol):
     The connector that can run all the commands needed to satisfy the ELT
     """
 
-    def __init__(self) -> None:
-        self._log = logging.getLogger(__name__)
+    def __init__(self, logger: logging.Logger) -> None:
+        self._log = logger
         self._log.setLevel(logging.DEBUG)
         
     def write(self, config: ConnectorConfig):

@@ -3,7 +3,7 @@ from elt_script.connector.configuration import ConnectorConfig
 from elt_script.connector.connector_interface import DatabaseConnectorProtocol
 from elt_script.connector.pg_connector import PsqlConnector
 
-from dagster import Definitions, asset
+from dagster import AssetExecutionContext, Definitions, asset
 
 def transfer_data(dbConn: DatabaseConnectorProtocol):
     source_config = ConnectorConfig(
@@ -27,10 +27,13 @@ def transfer_data(dbConn: DatabaseConnectorProtocol):
         connector.read(source_config)
         connector.write(dest_config)
 
-@asset
-def transfer_data_asset():
-    connector = PsqlConnector()
+@asset(compute_kind="python")
+def transfer_data_asset(context: AssetExecutionContext):
+    context.log.info("Starting transfer to destination table")
+    connector = PsqlConnector(context.log)
     transfer_data(connector)
+    context.log.info("Finished moving data to destination table")
+
 
 defs = Definitions(
     assets=[transfer_data_asset]

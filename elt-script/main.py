@@ -18,13 +18,12 @@ def setup_logging() -> logging.Logger:
     return root
 
 def main(dbConn: DatabaseConnectorProtocol):
-    logger = setup_logging()
-
-    logger.info("Starting ELT Process")
     transfer_data(dbConn)
 
-    logger.info("Finished ELT process")
 
 if __name__ == "__main__":
-    main(PsqlConnector())
+    logger = setup_logging()
+    logger.info("Starting ELT Process")
+    main(PsqlConnector(logger=logger))
+    logger.info("Finished ELT process")
 
