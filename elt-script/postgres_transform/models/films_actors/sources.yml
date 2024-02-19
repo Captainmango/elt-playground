@@ -21,3 +21,11 @@ sources:
         meta:
           dagster:
             asset_key: ["raw_film_actors"]
+          
+  - name: elt
+    description: transfer data to the database DBT is using
+    tables:
+      - name: transfer_data
+        meta:
+          dagster:
+            asset_key: ["transfer_data"]
