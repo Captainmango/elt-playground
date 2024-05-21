@@ -3,7 +3,6 @@ name = "elt-script"
 version = "0.1.0"
 description = "ELT script I'm going to run"
 authors = ["Edward Heaver <edward.heaver01@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -12,6 +11,9 @@ dbt-postgres = "^1.7.7"
 dagster = "^1.6.4"
 dagster-dbt = "^0.22.4"
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.4"
 
 [build-system]
 requires = ["poetry-core"]

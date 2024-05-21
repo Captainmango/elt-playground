@@ -6,7 +6,7 @@ This is me playing about with an ELT pattern as a data engineer. This isn't a se
 Set up a .env in the root of the project for use with the docker compose file. There is a Makefile for running things easier.
 
 ### Notes
-- ELT code in Dagster doesn't seem to work properly. Not too sure why. It works via the Docker container so shouldm work via Dagster. Not much value in debugging as just a toy project
+- ELT code in Dagster doesn't seem to work properly. Not too sure why. It works via the Docker container so should work via Dagster. Not much value in debugging as just a toy project
 - DBT schema has issues with my SQL. It looks valid, but it claims things aren't valid and says things don't exist sometimes. Not much value in fixing. If you're looking at this and have a fix, go for it. I lost hours trying to get it to play ball.
 
 ### Example env
@@ -38,5 +38,5 @@ DAGSTER_DBT_PARSE_PROJECT_ON_LOAD=1
 - `make run` Run the docker compose file that starts the databases and Dagster once all DBs are healthy
 - `make start-databases` Starts the source and destination databases and seeds the source with initial data (queries in source_db_init/init.sql)
 - `make connect-source-db` Connect to the source database using the psql client
-- `make connect-destination-db` Connect to the destination database using the mysql client
+- `make connect-destination-db` Connect to the destination database using the psql client
 - `make test-elt` Run the ELT script's tests

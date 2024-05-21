@@ -18,12 +18,12 @@ class PsqlConnector(DatabaseConnectorProtocol):
         self._log.info(f"Writing to the Postgres database at {config.host}")
         cmd = f"psql -h {config.host} -U {config.user} -d {config.dbName} -a -f data_dump.sql"
         subprocess.run(cmd, env=dict(PGPASSWORD=config.password), check=True, shell=True)
-        self._log.info(f"Write to Postgres database complete")
+        self._log.info("Write to Postgres database complete")
 
     def read(self, config: ConnectorConfig):
         self._log.info(f"Reading from the Postgres database at {config.host}")
         cmd = f"pg_dump -h {config.host} -U {config.user} -d {config.dbName} -f data_dump.sql -w"
         subprocess.run(cmd, env=dict(PGPASSWORD=config.password), check=True, shell=True)
-        self._log.info(f"Read from the Postgres database complete")
+        self._log.info("Read from the Postgres database complete")
 
         
